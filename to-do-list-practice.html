@@ -1,0 +1,103 @@
+<html>
+
+<head>
+    <title>TO-DO-LIST</title>
+</head>
+
+<script>
+
+    const todo_obj = [];
+
+    function display_todo_list() {
+        let todo_newarray = '';
+        for (let i = 0; i < todo_obj.length; i++) {
+            const temp = todo_obj[i];
+            const name = temp.name;
+            const dueDate = temp.dueDate;
+            const html = `<p>
+        <span style="font-family:arial; font-size: 16px; font-weight: bold;">${name}</span> 
+        <span style="font-family:arial; font-size: 16px; font-weight: bold;">${dueDate}</span>
+        <button class="DELETE" onclick="todo_obj.splice(${i},1);  display_todo_list();">DELETE</button>
+    </p>`;
+
+            todo_newarray += html;
+        }
+        console.log(todo_newarray);
+        document.querySelector('.todo-list').innerHTML = todo_newarray;
+    }
+
+    function add_task() {
+        const inputElement = document.querySelector('.todo-placeholder');
+        const name = inputElement.value;
+        const dueDate_inputElement = document.querySelector('.due-date');
+        const dueDate = dueDate_inputElement.value;
+        todo_obj.push({
+            name
+            , dueDate
+        });
+        //console.log(task);
+        display_todo_list();
+        inputElement.value = '';
+
+    }
+
+
+</script>
+
+<style>
+    .titles {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 50px;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-left: 20px;
+    }
+
+    .todo-placeholder {
+        border: 2px solid black;
+        padding: 10px 20px;
+        font-weight: bold;
+    }
+
+    .todo-placeholder::placeholder {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .due-date {
+        border: 2px solid black;
+        padding: 9px 20px;
+        font-weight: bold;
+    }
+
+    .add-button {
+        background-color: rgb(76, 249, 76);
+        border: 2px solid black;
+        border-radius: 5px;
+        height: 40px;
+        width: 60px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .DELETE {
+        background-color: rgb(200, 11, 11);
+        border: 2px solid black;
+        border-radius: 5px;
+        height: 40px;
+        width: 80px;
+        font-weight: bold;
+        margin-left: 20px;
+
+    }
+</style>
+
+<body>
+    <p class="titles">TO DO LIST</p>
+    <input class="todo-placeholder" placeholder="TODO NAME">
+    <input class="due-date" type="date">
+    <button class="add-button" onclick="add_task()">ADD</button>
+    <div class="todo-list"></div>
+</body>
+
+</html>
